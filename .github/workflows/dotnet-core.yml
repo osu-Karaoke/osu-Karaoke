@@ -1,0 +1,22 @@
+name: .NET Core
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+    name: Build and Test
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+    - name: Install dependencies
+      run: dotnet restore
+    - name: Build with .NET
+      run: dotnet build --no-restore --configuration Release
+    - name: Unit Tests
+      run: dotnet test --no-build --no-restore --configuration Release
